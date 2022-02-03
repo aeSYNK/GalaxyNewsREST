@@ -4,8 +4,8 @@ from django.db import models
 
 class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    title = models.CharField('Название', max_length=50)
-    content = models.TextField('Описание', blank=True)
+    title = models.CharField('Название', db_index=True, max_length=50)
+    content = models.TextField('Описание', blank=True, null=True)
     pub_date_post = models.DateTimeField('Дата публикации', auto_now_add=True)
     pub_update = models.DateTimeField('Дата обновления', auto_now=True)
     image = models.ImageField(upload_to='photos/%Y/%m/%d/')

@@ -1,8 +1,15 @@
 from rest_framework import generics, viewsets
+from rest_framework.viewsets import ModelViewSet
+
 from .serializers import *
 from .models import Post, Tag, Category
 from .permissions import *
 from rest_framework.permissions import IsAuthenticated
+
+
+class NewsViewSet(ModelViewSet):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
 
 
 class PostCreateView(generics.CreateAPIView):

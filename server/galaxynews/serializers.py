@@ -2,12 +2,6 @@ from rest_framework import serializers
 from .models import Post, Category, Tag
 
 
-class PostListSerializers(serializers.ModelSerializer):
-    class Meta:
-        model = Post
-        fields = '__all__'
-
-
 class PostSerializer(serializers.ModelSerializer):
     author = serializers.HiddenField(default=serializers.CurrentUserDefault())
     pub_date_post = serializers.HiddenField(default=serializers.DateTimeField())
@@ -21,6 +15,15 @@ class PostSerializer(serializers.ModelSerializer):
 class TagListSerializers(serializers.ModelSerializer):
     class Meta:
         model = Tag
+        fields = '__all__'
+
+
+class PostListSerializers(serializers.ModelSerializer):
+    author = serializers.CharField(source='author.username')
+    tags = TagListSerializers(many=True)
+
+    class Meta:
+        model = Post
         fields = '__all__'
 
 
